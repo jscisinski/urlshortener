@@ -1,0 +1,43 @@
+{% extends 'urlshortener/base.html' %} 
+
+{% block body %}
+
+<div class="container">
+  <div class="card mt-5">
+    <div class="text-center py-3">
+      <h1>URL Shortner Application <i class="px-2"></i></h1>
+    </div>
+    <div class="px-3 py-4">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row g-1">
+          <div class="col-10">{{form.long_url}}</div>
+          <div class="col-2">
+            <button class="btn btn-success btn-lg w-100" type="submit">
+              Shorten
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if errors %}
+    <p>{{errors}}</p>
+  {% endif %}
+
+  {% if new_url %}
+
+  <div class="mx-auto text-center mt-5">
+    {% if not_created %}
+      <h2 class="text-danger">Your shortened Url</h2>
+    {% else %}
+      <h2 class="text-danger">Chosen Url was already shortened</h2>
+    {% endif %}
+    <p>You can copy the Link below and share it.</p>
+    <a href="{{new_url}}">{{new_url}}</a>
+    <p>Previous URL: {{long_url}}</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock body %}
